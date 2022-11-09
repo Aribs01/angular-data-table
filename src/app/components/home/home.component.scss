@@ -1,0 +1,128 @@
+.home-container {
+    padding: 20px 100px;
+}
+h4 {
+    color: #6E6893;
+    margin-left: 15px;
+}
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-bottom: 1px solid #C6C2DE;
+    height: 35px;
+    margin-bottom: 20px;
+    color: #6E6893;
+    ul {
+        display: flex;
+        list-style: none;
+        padding-left: 15px;
+        cursor: pointer;
+    }
+    li {
+        margin-right: 20px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        padding-bottom: 10px;
+        &:hover {
+            color: #25213B;
+            border-bottom: 1px solid #25213B;
+        }
+    }
+}
+.inactive-list{
+    border-bottom: 2px solid transparent;
+}
+.active-list{
+    border-bottom: 2px solid #25213B;
+}
+.sort-button{
+    height: 40px;
+    margin-right: 20px;
+}
+.search-input{
+    height: 40px;
+    background-color: #F4F2FF;
+    border: none;
+    border: 1px solid transparent;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    &:hover{
+        border: 1px solid #6D5BD0;
+    }
+}
+.pay-due-button{
+    background-color: #6D5BD0;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    width: fit-content;
+    padding: 10px 10px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    &:hover{
+        opacity: 0.8;
+    }
+}
+.payment-badge{
+    padding: 3px 9px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    width: fit-content;
+    font-size: 14px;
+    i{
+        font-size: 7px;
+        padding-right: 7px;
+    }
+}
+.active-color{
+    color: #4A4AFF;
+    background-color: #E6E6F2;
+}
+.inactive-color{
+    color: #6E6893;
+    background-color: #F2F0F9;
+}
+.paid-color{
+    color: #007F00;
+    background-color: #CDFFCD;
+}
+.overdue-color{
+    color: #D30000;
+    background-color: #FFE0E0;
+}
+.unpaid-color{
+    color: #965E00;
+    background-color: #FFECCC;
+}
+.view-more-button{
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    color: #6E6893;
+    padding: 9px 10px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    &:hover{
+        background-color: #F2F0F9;
+    }
+}
+.icon-container{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    &:hover{
+        background-color: #F2F0F9;
+    }
+}
+@media (max-width: 991px){
+    .home-container {
+        padding: 50px 30px;
+    }
+}

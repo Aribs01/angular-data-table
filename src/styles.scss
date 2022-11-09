@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+body{
+    font-family: inter;
+    color: #6E6893;
+    background-color: #E5E5E5;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+    font-family: inter;
+    src: url(./assets/Inter-Regular.ttf);
+}
+
+@import '~primeicons/primeicons.css';

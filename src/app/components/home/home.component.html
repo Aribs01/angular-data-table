@@ -1,1 +1,155 @@
-<h1>HHH</h1>
+<div class="home-container">
+    <div>
+        <h4>TABLE HEADING</h4>
+    </div>
+    <div class="transaction">
+        <div class="transaction-content">
+            <ul>
+                <li [ngClass]="status == 'all' ? 'active-list' : ''" (click)="toggleStatus('all')">All</li>
+                <li [ngClass]="status == 'paid' ? 'active-list' : ''" (click)="toggleStatus('paid')">Paid</li>
+                <li [ngClass]="status == 'unpaid' ? 'active-list' : ''" (click)="toggleStatus('unpaid')">Unpaid</li>
+                <li [ngClass]="status == 'overdue' ? 'active-list' : ''" (click)="toggleStatus('overdue')">Overdue</li>
+            </ul>
+        </div>
+        <div class="transaction-content">
+            <p style="color: #6E6893;">Total payable amount: <span style="color:#6D5BD0;font-weight: 700;">$900.00</span> USD</p>
+        </div>
+    </div>
+
+    <div>
+        <p-card>
+            <p-table #dt1 [value]="users" dataKey="lastName" responsiveLayout="scroll" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['firstName','lastName','email','paidOn','lastLogin']">
+                <ng-template pTemplate="caption">
+                    <div style="display: flex;justify-content: space-between;">
+                        <div>
+                            <button pButton label="Filter" class="p-button-outlined sort-button" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+                            <span class="p-input-icon-left" style="position: relative;" >
+                                <i class="pi pi-search" style="color:#8B83BA;"></i>
+                                <input pInputText class="search-input" type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search Users by Name, Email or Date" />
+                            </span>
+                        </div>
+                        <div>
+                            <button class="pay-due-button" (click)="payDues()">
+                                <i *ngIf="loading" class="pi pi-spin pi-spinner"></i>
+                                Pay Dues
+                            </button>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th style="width: 2rem"></th>
+                        <th>Name</th>
+                        <th>User Status</th>
+                        <th>Payment Status</th>
+                        <th>Amount</th>
+                        <th></th>
+                        <th>
+                            <i class="pi pi-ellipsis-v"></i>
+                        </th>
+                        
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-user let-expanded="expanded">
+                    <tr [pRowToggler]="user" style="cursor: pointer;">
+                        <td>
+                            <p-tableCheckbox [value]="user" (click)="selectUser(user)" style="color: #8B83BA;"></p-tableCheckbox>
+                        </td>
+                        <td>
+                            <button type="button" pButton pRipple [pRowToggler]="user" style="color: #8B83BA;"
+                                class="p-button-text p-button-rounded p-button-plain"
+                                [icon]="expanded ? 'pi pi-chevron-circle-up' : 'pi pi-chevron-circle-down'">
+                            </button>
+                        </td>
+                        <td>
+                            <span style="color: #25213B;">{{user.lastName}} {{user.firstName}}</span><br>
+                            <span style="color: #6E6893;">{{user.email}}</span>
+                        </td>
+
+                        <td>
+                            <div [ngClass]="user.userStatus == 'active' ? 'payment-badge active-color' : 'payment-badge inactive-color'">
+                                <i class="pi pi-circle-fill"></i>
+                                {{user.userStatus}}
+                            </div>
+                            <span style="color: #6E6893;font-size: 13px;">
+                                Last login: {{user.lastLogin}}
+                            </span>
+                        </td>
+                        <td>
+                            <div [ngClass]="user.paymentStatus == 'paid' ? 'payment-badge paid-color' : user.payment == 'overdue' ? 'payment-badge overdue-color' : 'payment-badge unpaid-color'">
+                                <i class="pi pi-circle-fill"></i>
+                                {{user.paymentStatus}}
+                            </div>
+                            <span style="color: #6E6893;font-size: 13px;">
+                                Paid on {{user.paidOn}}
+                            </span>
+                        </td>
+                        <td>
+                            <b>{{user.amountInCents / 100}}</b><br>
+                            <span style="color: #6E6893;font-size:12px;">USD</span>
+                        </td>
+                        
+                        <td>
+                            <button class="view-more-button">
+                                View More
+                            </button>
+                        </td>
+                        <td>
+                            <div class="icon-container">
+                                <i class="pi pi-ellipsis-v" (click)="menu.toggle($event)">
+                                    <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
+                                </i>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="rowexpansion" let-singleuser>
+                    <tr>
+                        <td colspan="7">
+                            <div class="p-3">
+                                <p-table [value]="singleuser.activities" dataKey="id" responsiveLayout="scroll">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>User Activity</th>
+                                            <th>Detail <i class="pi pi-info-circle" pTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Feugiat eget."></i></th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-singleuser>
+                                        <tr>
+                                            <td>{{singleuser.date}}</td>
+                                            <td>
+                                                <span>
+                                                    {{singleuser.userActivity}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    {{singleuser.details}}
+                                                </span>
+
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage">
+                                        <tr>
+                                            <td colspan="12">
+                                                <div style="text-align: center;">
+                                                    <h3>No records found</h3>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+    </div>
+</div>
